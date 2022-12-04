@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 
-function NavScrollExample() {
+function NavSearch() {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" expand="lg">
         
       <Container fluid>
           <Form className="d-flex align-center">
@@ -22,4 +22,4 @@ function NavScrollExample() {
   );
 }
 
-export default NavScrollExample;
+export default NavSearch;

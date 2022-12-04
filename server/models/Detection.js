@@ -21,4 +21,4 @@ const detectionSchema = new Schema({
   }
 });
 
-module.exports = siteSchema;
+module.exports = detectionSchema;
