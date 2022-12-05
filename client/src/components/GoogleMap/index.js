@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import './style.css'
 
-export default function Home() {
+export default function MyGoogleMap() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MY_ENV_VARIABLE,
   });
