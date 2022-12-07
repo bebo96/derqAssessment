@@ -2,16 +2,24 @@ import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Table } from 'react-bootstrap';
-import searchGoogleMaps from '../../utils/API';
+import {searchGoogleMaps, searchGoogleMapsz } from '../../utils/API';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+
 import './style.css'
 
 function SearchBar() {
 
-  const [searchedMaps, setSearchedMaps] = useState([]);
+  const [searchedMaps, setSearchedMaps] = useState('');
+  const [searchedMapsz, setSearchedMapsz] = useState([]);
   const [name, setName] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  const [myOutput, setMyOutput] = useState([]);
+  
   // create method to search for maps and set state on form submit
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(searchInput);
 
@@ -20,61 +28,56 @@ function SearchBar() {
       }
       
       try {
-        searchGoogleMaps(searchInput, timestamp)
-        .then(response => {
-          return response.json()
-        })
+        searchGoogleMaps(searchInput)
         .then(data => {
+
           setSearchedMaps(data);
-          console.log(data.timeZoneId);
           setSearchInput('');
         })
       }  
       catch (err) {
         console.error(err);
       }
-  };
-  const current = new Date();
-  const timestamp = (current.getTimezoneOffset() * 60000);
-
+      
+        searchGoogleMapsz(searchedMaps)
+        .then(data => {
+          setSearchedMapsz(data);
+          
+        })
+      console.log(searchedMaps , "\n", "this\n", "is\n");
+      console.log(searchedMapsz , "\n", "this\n", "iszzz\n");
+        
+        };
+        const current = new Date();
+        const timestamp = (current.getTimezoneOffset() * 60000);
+        
   function calcTime(offset) {
     var d = new Date();
     var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
     var nd = new Date(utc + (1000*offset));
 
     console.log("The local time is " + nd.toLocaleString());
+    return nd.toLocaleString();
 }
 
 useEffect(() => {
-  
-  if(searchedMaps.timeZoneId){
-        setName(searchedMaps.timeZoneId);
-        console.log(searchedMaps.timeZoneId);
-        console.log(Date.now(), "THIS");
-        console.log(current.getUTCSeconds(), "NOT THIS");
-        // console.log(date);
-        console.log(calcTime(searchedMaps.rawOffset));
-    }
-  
+  setName(calcTime(searchedMaps.rawOffset));
 }, [searchedMaps])
+
     return (
-            <div className="form-div">
-                <Form className="d-flex align-center" onSubmit={handleFormSubmit}>
-                    <Form.Control
-                    name='searchInput'
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    type='text'
-                    size='lg'
-                    placeholder='Search for a location'
-                    />
+          <div className="form-div">
+               <Form className="d-flex align-center" onSubmit={handleFormSubmit}>
+                   <Form.Control
+                   name='searchInput'
+                   value={searchInput}
+                   onChange={(e) => setSearchInput(e.target.value)}
+                   type='text'
+                   size='lg'
+                   placeholder='Search for a city'
+                   />
+                   <Button variant="outline-success" type='submit' >Create</Button>
+               </Form> 
 
-                    <Button variant="outline-success" type='submit' >Create</Button>
-                </Form> 
-
-          
-          
-      
             <div>
               <div className="table-info">
                 <Table striped bordered hover>
@@ -90,10 +93,10 @@ useEffect(() => {
                     <tbody>
                         <tr>
                             <td>{name} </td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdozzz</td>
-                            <td>@mdozz</td>
+                            <td>Car</td>
+                            <td>North Bound</td>
+                            <td>Through</td>
+                            <td>2</td>
                         </tr>
                     </tbody>
                 </Table>
