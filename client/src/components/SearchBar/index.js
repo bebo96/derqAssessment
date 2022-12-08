@@ -1,72 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Table } from 'react-bootstrap';
-import {searchGoogleMaps, searchGoogleMapsz } from '../../utils/API';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-
 import './style.css'
-
+import axios from 'axios';
+import './style.css'
 function SearchBar() {
 
-  const [searchedMaps, setSearchedMaps] = useState('');
-  const [searchedMapsz, setSearchedMapsz] = useState([]);
   const [name, setName] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-  const [myOutput, setMyOutput] = useState([]);
-  
+  // const [setCenterData, centerData] = useState('');
+  var myString;
   // create method to search for maps and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(searchInput);
-
     if (!searchInput) {
-        return false;
-      }
-      
-      try {
-        searchGoogleMaps(searchInput)
-        .then(data => {
+      return false;
+    }
+  // Make first two requests
+  const [firstResponse] = await Promise.all([
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchInput}&key=${process.env.REACT_APP_MY_ENV_VARIABLE}`),
+  ]);
+  
+  myString = `${firstResponse.data.results[0].geometry.location.lat},${firstResponse.data.results[0].geometry.location.lng}`;
+  const current = new Date();
+  const timestamp = (current.getTimezoneOffset() * 60000);
+  
+  const thirdResponse = await axios.get(`https://maps.googleapis.com/maps/api/timezone/json?location=${myString}&timestamp=${timestamp}&key=${process.env.REACT_APP_MY_ENV_VARIABLE}`); 
 
-          setSearchedMaps(data);
-          setSearchInput('');
-        })
-      }  
-      catch (err) {
-        console.error(err);
-      }
-      
-        searchGoogleMapsz(searchedMaps)
-        .then(data => {
-          setSearchedMapsz(data);
-          
-        })
-      console.log(searchedMaps , "\n", "this\n", "is\n");
-      console.log(searchedMapsz , "\n", "this\n", "iszzz\n");
-        
-        };
-        const current = new Date();
-        const timestamp = (current.getTimezoneOffset() * 60000);
-        
-  function calcTime(offset) {
-    var d = new Date();
-    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    var nd = new Date(utc + (1000*offset));
+  setName(calcTime(thirdResponse.data.rawOffset));
+  setSearchInput('');
+};
+  
+    function calcTime(offset) {
+      var d = new Date();
+      var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+      var nd = new Date(utc + (1000*offset));
 
-    console.log("The local time is " + nd.toLocaleString());
-    return nd.toLocaleString();
-}
-
-useEffect(() => {
-  setName(calcTime(searchedMaps.rawOffset));
-}, [searchedMaps])
+      console.log("The local time is " + nd.toLocaleString());
+      return nd.toLocaleString();
+    }
 
     return (
           <div className="form-div">
-               <Form className="d-flex align-center" onSubmit={handleFormSubmit}>
+               <Form className="d-flex align-center" onSubmit={handleFormSubmit }>
                    <Form.Control
                    name='searchInput'
                    value={searchInput}
@@ -102,7 +80,6 @@ useEffect(() => {
                 </Table>
             </div>
             </div>
-      
             </div>
     )
 }
