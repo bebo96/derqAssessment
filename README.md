@@ -19,7 +19,8 @@ https://bebo96.github.io/CreateSite
 ### Instructions: 
 * Place the provided .env in the ./client directory 
 * In the root directory, run "npm run develop" to compile application 
-
+* To Create a Site: 
+    * Once at home page, click the "Home" button --> "Create Site" button 
 ![alt text](./server/assets/create-site-screenshot.png)
 ## Contribution
 Ibrahim Imran (bebo96)
