@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-const { testApi } = require('../../controllers/map-controller');
+const { saveDetection } = require('../../controllers/map-controller');
 
-router.route('/testApi').get(testApi);
+router.route('/savedetection').post(saveDetection);
 
 module.exports = router;

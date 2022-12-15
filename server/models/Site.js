@@ -1,7 +1,10 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
-const siteSchema = new Schema({
-  // saved book id from GoogleBooks
+const { Schema } = mongoose;
+// const detectionSchema = require('./Detection');
+
+const siteSchema = new Schema(
+  {
   ID: {
     type: Number,
     required: true,
@@ -15,7 +18,17 @@ const siteSchema = new Schema({
   },
   timezone: {
     type: String,
+  }
+  // savedDetections: [detectionSchema]
   },
-});
+  {
+    toJSON: {
+      virtuals: true,
+    }
+  }
 
-module.exports = siteSchema;
+);
+
+const Site = mongoose.model('Site', siteSchema);
+
+module.exports = Site;

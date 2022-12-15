@@ -1,4 +1,6 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const detectionSchema = new Schema({
   // saved book id from GoogleBooks
@@ -21,4 +23,6 @@ const detectionSchema = new Schema({
   }
 });
 
-module.exports = detectionSchema;
+const Detection = mongoose.model('Detection', detectionSchema);
+
+module.exports = Detection;
