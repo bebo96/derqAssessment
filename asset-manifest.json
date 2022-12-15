@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/derqAssessment/static/css/main.fb1a251d.css",
+    "main.js": "/derqAssessment/static/js/main.cb8fc2c1.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/derqAssessment/static/js/787.c4e7f8f9.chunk.js",
+    "index.html": "/derqAssessment/index.html",
+    "main.fb1a251d.css.map": "/derqAssessment/static/css/main.fb1a251d.css.map",
+    "main.cb8fc2c1.js.map": "/derqAssessment/static/js/main.cb8fc2c1.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/derqAssessment/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fb1a251d.css",
+    "static/js/main.cb8fc2c1.js"
+  ]
+}
