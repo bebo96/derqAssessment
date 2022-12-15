@@ -14,7 +14,7 @@ A single page application built using react!
 https://github.com/bebo96/derqAssessment
 
 ## Deployed Application 
-https://bebo96.github.io/CreateSite
+https://bebo96.github.io/derqAssessment
 
 ### Instructions: 
 * Place the provided .env in the ./client directory 
