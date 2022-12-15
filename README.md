@@ -20,6 +20,6 @@ https://bebo96.github.io/CreateSite
 * Place the provided .env in the ./client directory 
 * In the root directory, run "npm run develop" to compile application 
 
-![alt text](./assets/create-site-screenshot.png)
+![alt text](./server/assets/create-site-screenshot.png)
 ## Contribution
 Ibrahim Imran (bebo96)
